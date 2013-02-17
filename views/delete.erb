@@ -1,0 +1,6 @@
+<p>You are going to delete a word. All the stuff related to this word will disappear from the results page as well. (So copy it somewhere maybe).</p>
+    <form action="/<%= @word.id %>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="Okay, delete">
+      <a href="/">Shit, no, take me back</a>
+    </form>

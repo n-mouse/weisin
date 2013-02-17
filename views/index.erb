@@ -1,0 +1,19 @@
+<h2>Enter a word here:</h2>
+<form method="post" action="/">
+<textarea cols="35" rows="1" name ="message"></textarea><br />
+<input type="submit" value="Submit" />
+<br />
+
+</form> 
+<br />
+<a href="result">See results here</a>
+<% @words.each do |word| %>
+  <p><%= word.name %></p>
+  <span><a href="/<%= word.id %>">[delete]</a></span> 
+<% end %> 
+<br />
+
+
+
+
+  

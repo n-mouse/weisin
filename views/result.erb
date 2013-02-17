@@ -1,0 +1,8 @@
+<h2>Results</h2>
+
+<% @words.each do |word| %>
+  <% word.changes.each do |change| %>
+    <p>The word <b><%= word.name %></b> is <%= change.status %>. Time UTC: <%= change.time %></p>
+  <% end %> 
+  <br/>
+<% end %>
