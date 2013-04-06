@@ -5,6 +5,7 @@ require 'uri'
 require 'open-uri'
 require 'data_mapper'
 require 'rufus/scheduler'
+require './pony_gmail'
 
 DataMapper.setup(:default, "mysql://user:pass@localhost/db_name")
 
@@ -36,7 +37,7 @@ DataMapper.finalize.auto_upgrade!
 module Checks
   def self.check(word)
     word_esc = URI.escape(word)
-    file = open(site_name + word_esc + "&Refer")
+    file = open("http://s.weibo.com/weibo/" + word_esc + "&Refer")
     text = file.read
     if text["\\u6839\\u636e\\u76f8\\u5173\\u6cd5\\u5f8b\\u6cd5\\u89c4\\u548c\\u653f\\u7b56"]
       @status = "blocked"
@@ -44,6 +45,7 @@ module Checks
       @status = "unblocked"
     end
   end
+  
 end
 
 helpers do
@@ -96,12 +98,13 @@ configure do
   
   Word.all.each do |word|
     status_n = Checks.check(word.name)
-    if word.changes.last.status == status_n 
-      word.changes << Change.new(:status => status_n, :time => Time.now.utc.strftime("%e %b %Y %H:%m:%S%p").to_s)
+    if word.changes.last.status != status_n 
+      word.changes << Change.new(:status => "it works again", :time => Time.now.utc.strftime("%e %b %Y %H:%m:%S%p").to_s)
+      
     end
     word.save
-    secs = *(35..100)
-    sleep secs.sample
+    #secs = *(35..100)
+    #sleep secs.sample
   end
   
  end

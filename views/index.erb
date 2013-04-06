@@ -7,13 +7,14 @@
 </form> 
 <br />
 <a href="result">See results here</a>
+<ul style="list-style:none;">
 <% @words.each do |word| %>
-  <p><%= word.name %></p>
-  <span><a href="/<%= word.id %>">[delete]</a></span> 
-<% end %> 
-<br />
+  <li style="display:block;width:24%;height:50px;float:left;"><a href="/result#<%= word.id %>"><%= word.id %>. <%= word.name %></a>
+  <br /><span><a href="/<%= word.id %>" style="color:red;">[delete]</a></span></li>
+<% end %>
+</ul>
 
 
-
+  
 
   
